@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'Accueil</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Styles généraux */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    overflow: hidden;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://static.vecteezy.com/ti/photos-gratuite/p2/18825808-fond-d-ecran-abstrait-3d-metal-de-style-sombre-gratuit-photo.jpg') no-repeat center center;
+    background-size: cover; /* Utilisation de 'cover' pour adapter l'image à l'écran */
+    z-index: -1;
+    filter: blur(8px);
+}
+
+/* Conteneur principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 30px;
+}
+
+/* Barre de recherche */
+.search-bar {
+    width: 60%;
+    max-width: 500px;
+}
+
+#search-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Grille des sites */
+.site-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 20px;
+    width: 60%;
+    max-width: 600px;
+}
+
+.site-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 15px;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.site-card.youtube { background: #ff0000; }
+.site-card.twitch { background: #6441a5; }
+.site-card.google { background: #4285F4; }
+.site-card.github { background: #333; }
+
+.site-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Boutons */
+.button-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px; /* Espace entre les boutons */
+}
+
+#upload-button, #reset-button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+}
+
+#reset-button {
+    background-color: #d9534f;
+}
+
+/* Cache l'input file */
+#file-input {
+    display: none;
+}
+
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Rechercher sur le web...">
+        </div>
+        <div class="site-grid">
+            <a href="https://www.youtube.com" target="_blank" class="site-card youtube">YouTube</a>
+            <a href="https://www.twitch.tv" target="_blank" class="site-card twitch">Twitch</a>
+            <a href="https://www.google.com" target="_blank" class="site-card google">Google</a>
+            <a href="https://www.github.com" target="_blank" class="site-card github">GitHub</a>
+        </div>
+    </div>
+
+    <!-- Conteneur des boutons -->
+    <div class="button-container">
+        <!-- Bouton pour ajouter un fond -->
+        <button id="upload-button">+</button>
+        <!-- Bouton pour réinitialiser le fond -->
+        <button id="reset-button">Réinitialiser</button>
+    </div>
+    
+    <input type="file" id="file-input" accept="image/*">
+
+    <script>
+        // Récupérer l'image de fond sauvegardée dans le localStorage
+        window.onload = function() {
+            const savedBackground = localStorage.getItem('backgroundImage');
+            if (savedBackground) {
+                document.querySelector('.background').style.backgroundImage = `url(${savedBackground})`;
+            }
+        }
+
+        // Écouter l'événement de la touche "Enter" sur l'entrée de recherche
+        document.getElementById('search-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                const query = e.target.value.trim();
+                if (query) {
+                    const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                    window.open(searchUrl, '_blank');
+                }
+            }
+        });
+
+        // Fonction pour changer l'image de fond lorsqu'un fichier est téléchargé
+        document.getElementById('upload-button').addEventListener('click', function() {
+            document.getElementById('file-input').click();
+        });
+
+        document.getElementById('file-input').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    // Appliquer l'image téléchargée comme fond d'écran
+                    const imageUrl = event.target.result;
+                    document.querySelector('.background').style.backgroundImage = `url(${imageUrl})`;
+
+                    // Sauvegarder l'image dans le localStorage
+                    localStorage.setItem('backgroundImage', imageUrl);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Fonction pour réinitialiser l'image de fond à l'image par défaut
+        document.getElementById('reset-button').addEventListener('click', function() {
+            // Réinitialiser le fond à l'image par défaut
+            const defaultBackground = 'https://static.vecteezy.com/ti/photos-gratuite/p2/18825808-fond-d-ecran-abstrait-3d-metal-de-style-sombre-gratuit-photo.jpg';
+            document.querySelector('.background').style.backgroundImage = `url(${defaultBackground})`;
+
+            // Supprimer l'image de fond sauvegardée dans le localStorage
+            localStorage.removeItem('backgroundImage');
+        });
+    </script>
+</body>
+</html>
