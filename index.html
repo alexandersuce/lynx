@@ -6,128 +6,159 @@
     <title>Page d'Accueil</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="logo.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
     <style>
         /* Styles généraux */
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    color: #fff;
-    overflow: hidden;
-}
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            overflow: hidden;
+        }
 
-.background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('https://static.vecteezy.com/ti/photos-gratuite/p2/18825808-fond-d-ecran-abstrait-3d-metal-de-style-sombre-gratuit-photo.jpg') no-repeat center center;
-    background-size: cover;
-    z-index: -1;
-    filter: blur(8px);
-}
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://static.vecteezy.com/ti/photos-gratuite/p2/18825808-fond-d-ecran-abstrait-3d-metal-de-style-sombre-gratuit-photo.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: -1;
+            filter: blur(8px);
+        }
 
-/* Conteneur principal */
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    gap: 30px;
-}
+        /* Titre principal */
+        .title {
+            font-family: fantasy;
+            font-size: 48px;
+            text-align: center;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            margin-bottom: 20px;
+            color: #ff0000;
+        }
 
-/* Barre de recherche */
-.search-bar {
-    width: 60%;
-    max-width: 500px;
-}
+        /* Conteneur principal */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 30px;
+        }
 
-#search-input {
-    width: 100%;
-    padding: 15px;
-    font-size: 18px;
-    border: none;
-    border-radius: 25px;
-    outline: none;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-}
+        /* Barre de recherche */
+        .search-bar {
+            width: 60%;
+            max-width: 500px;
+        }
 
-/* Grille des sites */
-.site-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 20px;
-    width: 60%;
-    max-width: 600px;
-}
+        #search-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            outline: none;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+        }
 
-.site-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80px; /* Taille réduite des boutons */
-    font-size: 16px; /* Taille de police réduite */
-    font-weight: bold;
-    border-radius: 15px;
-    text-decoration: none;
-    color: white;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
+        /* Grille des sites */
+        .site-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            width: 60%;
+            max-width: 600px;
+        }
 
-.site-card.youtube { background: #ff0000; }
-.site-card.twitch { background: #6441a5; }
-.site-card.google { background: #4285F4; }
-.site-card.github { background: #333; }
+        .site-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 15px;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 10px;
+        }
 
-.site-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
-}
+        .site-card img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 5px;
+        }
 
-/* Boutons */
-.button-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    gap: 10px;
-}
+        .site-card.youtube { background: #ff0000; }
+        .site-card.google { background: #4285F4; }
+        .site-card.github { background: #333; }
+        .site-card.gmail { background: green; }
 
-#upload-button, #reset-button {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 50%;
-    font-size: 20px;
-    cursor: pointer;
-    border: none;
-}
+        .site-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+        }
 
-#reset-button {
-    background-color: #d9534f;
-}
+        /* Boutons */
+        .button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
 
-/* Cache l'input file */
-#file-input {
-    display: none;
-}
+        #upload-button, #reset-button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+        }
 
+        #reset-button {
+            background-color: #d9534f;
+        }
+
+        /* Cache l'input file */
+        #file-input {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="background"></div>
     <div class="container">
+        <h1 class="title">Lynx Browser</h1>
         <div class="search-bar">
             <input type="text" id="search-input" placeholder="Rechercher sur le web...">
         </div>
         <div class="site-grid">
-            <a href="https://www.youtube.com" class="site-card youtube" onclick="window.location.href='https://www.youtube.com'; return false;">YouTube</a>
-            <a href="https://www.twitch.tv" class="site-card twitch" onclick="window.location.href='https://www.twitch.tv'; return false;">Twitch</a>
-            <a href="https://www.google.com" class="site-card google" onclick="window.location.href='https://www.google.com'; return false;">Google</a>
-            <a href="https://www.github.com" class="site-card github" onclick="window.location.href='https://www.github.com'; return false;">GitHub</a>
+            <a href="https://www.youtube.com" class="site-card youtube">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube Icon">
+                YouTube
+            </a>
+            <a href="https://www.google.com" class="site-card google">
+                <img src="https://img.icons8.com/?size=512&id=17949&format=png" alt="Google Icon">
+                Google
+            </a>
+            <a href="https://www.github.com" class="site-card github">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub Icon">
+                GitHub
+            </a>
+            <a href="https://www.gmail.com" class="site-card gmail">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail Icon">
+                Gmail
+            </a>
         </div>
     </div>
 
