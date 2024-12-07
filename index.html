@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page d'Accueil</title>
+    <title>New Tab</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="logo.ico">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
@@ -202,27 +202,36 @@
     <input type="file" id="file-input" accept="image/*">
 
     <script>
-        // Récupérer l'image de fond sauvegardée dans le localStorage
         window.onload = function() {
             const savedBackground = localStorage.getItem('backgroundImage');
             if (savedBackground) {
                 document.querySelector('.background').style.backgroundImage = `url(${savedBackground})`;
             }
-            updateClock(); // Initialiser l'horloge
-            setInterval(updateClock, 1000); // Mettre à jour chaque seconde
+            updateClock();
+            setInterval(updateClock, 1000);
         }
 
-        // Mettre à jour l'horloge
         function updateClock() {
             const now = new Date();
             const time = now.toLocaleTimeString();
             document.getElementById('clock').textContent = time;
         }
 
-        // Basculer entre les modes sombre et clair
         document.getElementById('mode-toggle').addEventListener('click', function() {
             document.body.classList.toggle('light-mode');
+        });
+
+        // Recherche sur Enter
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const query = searchInput.value.trim();
+                if (query) {
+                    window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                }
+            }
         });
     </script>
 </body>
 </html>
+
