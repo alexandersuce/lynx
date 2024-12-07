@@ -221,7 +221,28 @@
             document.body.classList.toggle('light-mode');
         });
 
-        // Recherche sur Enter
+        document.getElementById('upload-button').addEventListener('click', function() {
+            document.getElementById('file-input').click();
+        });
+
+        document.getElementById('file-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const backgroundUrl = e.target.result;
+                    document.querySelector('.background').style.backgroundImage = `url(${backgroundUrl})`;
+                    localStorage.setItem('backgroundImage', backgroundUrl);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('reset-button').addEventListener('click', function() {
+            localStorage.removeItem('backgroundImage');
+            document.querySelector('.background').style.backgroundImage = '';
+        });
+
         const searchInput = document.getElementById('search-input');
         searchInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -234,4 +255,3 @@
     </script>
 </body>
 </html>
-
